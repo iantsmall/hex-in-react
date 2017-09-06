@@ -81,12 +81,27 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        const initHexes = Array( Math.pow( props.boardSize + 2,2) );
+        const boardSize = props.boardSize + 2;
+        for(let i = 0; i < boardSize; ++i){
+            const top = i;
+            const bottom = initHexes.length - 1 - i;
+            const left = i * boardSize;
+            const right = left + boardSize - 1;
+            //fill in top and bottom w/ red, fill in left and right w/ blue
+            initHexes[top] = "red";
+            initHexes[left] = "blue";
+            initHexes[right] = "blue";
+            initHexes[bottom] = "red";
+        }
+        for(let i = 0; i < boardSize; ++i){
+        }
         this.state = {
             history: [
                 {
-                    hexes: []
+                    hexes: initHexes
                 }
             ],
             stepNumber: 0,
@@ -121,9 +136,10 @@ class Game extends React.Component {
     }
 
     render() {
+        const boardSize = this.props.boardSize + 2;
         const history = this.state.history;
         const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.hexes);
+        const winner = calculateWinner(current.hexes, boardSize);
 
         const moves = history.map((step, move) => {
             const desc = move ? "Move #" + move : "Game start";
@@ -147,10 +163,10 @@ class Game extends React.Component {
                     <Board
                         type="pointy-topped"
                         size={10}
-                        width={9}
-                        height={9}
-                        oX={10}
-                        oY={10}
+                        width={boardSize}
+                        height={boardSize}
+                        oX={4}
+                        oY={4}
                         hexes={current.hexes}
                         onClick={key => this.handleClick(key)}
                     />
@@ -166,9 +182,17 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(<Game />, document.getElementById("root"));
+ReactDOM.render(<Game boardSize = {9} />, document.getElementById("root"));
+
+
+
 
 function calculateWinner(hexes) {
+    function findPath(origin, desination, hexes){
+        //TODO implement simple depth first search for path
+        return [];
+    }
     //TODO calculate winner of HexTile game
-    return null;
+    const path = findPath( 0, hexes.length, hexes);
+    return path !== undefined && path.length > 0;
 }
