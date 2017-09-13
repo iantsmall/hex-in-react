@@ -1,43 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import {
-    Button,
-    Alert,
-    Grid,
-    Row,
-    Col,
-    Jumbotron,
-    Navs,
-    Nav,
-    NavItem,
-} from 'react-bootstrap';
+import {Grid, Row, Col, Jumbotron, Nav, NavItem} from 'react-bootstrap';
 import HexGame from "./hex-game.js";
 import Rules from "./rules.js";
+import ComingSoonModal from "./coming-soon-modal.js";
 
 // ========================================
 
 class App extends React.Component {
 
-    handleRulesClick() {
-        let rules = (<Rules boardSize={9}/>);
-        const alert = (<Alert bsStyle="info">Loaded Rules</Alert>);
-        ReactDOM.render( alert, document.getElementById("alert"));
-        ReactDOM.render( rules, document.getElementById("viewport"));
-    }
-
-    handleHexClick() {
-        let hexGame = (<HexGame boardSize={9}/>);
-        const alert = (<Alert bsStyle="info">Loaded Hex Game</Alert>);
-        ReactDOM.render(alert, document.getElementById("alert"));
-        ReactDOM.render(hexGame, document.getElementById("viewport"));
-
-    }
-
     render() {
-        let handleSelect = ((navFunction) => {
+
+        const hexGame = (<HexGame boardSize={9} ref={(childRef) => { this.board = childRef; }}/>);
+        const handleHexClick = (() => {
+            ReactDOM.render(hexGame, document.getElementById("viewport"));
+        });
+
+        const rulesModal = (<Rules ref={(childRef) => { this.rulesModal = childRef; }}/>);
+        const handleRulesClick = (() => {
+            this.rulesModal.open();
+        });
+
+        const comingSoonModal = ( <ComingSoonModal ref={(childRef) => { this.comingSoonModal = childRef; }}/> );
+        const handleComingSoonClick = (() => {
+            this.comingSoonModal.open();
+        });
+
+        const handleSelect = ((navFunction) => {
             navFunction();
         });
+
         return (
             <Grid id="app">
                 <Row>
@@ -48,8 +41,9 @@ class App extends React.Component {
                 <Row>
                     <Col xs={12}>
                         <Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
-                            <NavItem eventKey={this.handleHexClick} href="/home">Hex in React</NavItem>
-                            <NavItem eventKey={this.handleRulesClick} title="Item">Game Rules</NavItem>
+                            <NavItem eventKey={handleHexClick} href="/home">Hex in React</NavItem>
+                            <NavItem eventKey={handleRulesClick} title="Item">Game Rules</NavItem>
+                            <NavItem eventKey={handleComingSoonClick} title="Item">Coming Soon</NavItem>
                         </Nav>
                     </Col>
                 </Row>
@@ -60,6 +54,8 @@ class App extends React.Component {
                         </Jumbotron>
                     </Col>
                 </Row>
+                {comingSoonModal}
+                {rulesModal}
             </Grid>
         )
     }
