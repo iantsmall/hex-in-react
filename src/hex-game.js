@@ -2,6 +2,7 @@ import React from "react";
 import HexBoard from "./hex-board.js";
 import {convertArrayToMatrix} from "./utils.js";
 import {gridPoints} from "react-hex";
+import {Button, Alert, Grid, Row, Col} from 'react-bootstrap';
 
 const getNeighbors = (hex, matrix) => {
     const getHex = (x, y) => {
@@ -148,7 +149,7 @@ class HexGame extends React.Component {
                 : "Game start";
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <Button onClick={() => this.jumpTo(move)}>{desc}</Button>
                 </li>
             );
         });
@@ -165,10 +166,10 @@ class HexGame extends React.Component {
         return (
             <div className="game">
                 <div className="game-board">
-                    <HexBoard type="pointy-topped" size={10} width={boardSize} height={boardSize} oX={4} oY={4} hexes={current.hexes} onClick={key => this.handleClick(key)}/>
+                    <HexBoard type="pointy-topped" size={10} width={boardSize} height={boardSize} oX={10} oY={10} hexes={current.hexes} onClick={key => this.handleClick(key)}/>
                 </div>
                 <div className="game-info">
-                    <div>{status}</div>
+                    <Alert bsStyle={winner? "success" : "info"}>{status}</Alert>
                     <ol>{moves}</ol>
                 </div>
             </div>

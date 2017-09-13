@@ -1,9 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import HexGame from "./hex-game.js";
+import App from "./app.js";
 
-// ========================================
-
-ReactDOM.render(
-    <HexGame boardSize={9}/>, document.getElementById("root"));
+ReactDOM.render(<App/>, document.getElementById("root"));
