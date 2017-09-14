@@ -75,9 +75,13 @@ class HexBoard extends React.Component {
             return (<Hex key={key} {...props} fill={fill} stroke="grey" onClick={() => onClick(key)}/>);
         });
 
+        //TODO calculate width/height properties from size, type and width/height
+        const imageWidth = "300px";
+        const imageHeight = "200px";
+
         //return the gameboard containing hexes
         return (
-            <svg width="100%" height="100%">
+            <svg width={imageWidth} height={imageHeight}>
                 {hexes}
             </svg>
         );

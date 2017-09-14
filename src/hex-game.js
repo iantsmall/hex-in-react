@@ -164,15 +164,17 @@ class HexGame extends React.Component {
         }
 
         return (
-            <div className="game">
-                <div className="game-board">
-                    <HexBoard type="pointy-topped" size={10} width={boardSize} height={boardSize} oX={10} oY={10} hexes={current.hexes} onClick={key => this.handleClick(key)}/>
-                </div>
-                <div className="game-info">
-                    <Alert bsStyle={winner? "success" : "info"}>{status}</Alert>
-                    <ol>{moves}</ol>
-                </div>
-            </div>
+            <Grid>
+                <Row className="game">
+                    <Col sm={6} xs={12} className="game-board">
+                        <HexBoard type="pointy-topped" size={10} width={boardSize} height={boardSize} oX={10} oY={10} hexes={current.hexes} onClick={key => this.handleClick(key)}/>
+                    </Col>
+                    <Col sm={6} xs={12} className="game-info">
+                        <Alert bsStyle={winner? "success" : "info"}>{status}</Alert>
+                        <ol>{moves}</ol>
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

@@ -12,17 +12,15 @@ class App extends React.Component {
 
     render() {
 
+        //define child components
         const hexGame = (<HexGame boardSize={9} ref={(childRef) => { this.board = childRef; }}/>);
-        const handleHexClick = (() => {
-            ReactDOM.render(hexGame, document.getElementById("viewport"));
-        });
-
         const rulesModal = (<Rules ref={(childRef) => { this.rulesModal = childRef; }}/>);
+        const comingSoonModal = ( <ComingSoonModal ref={(childRef) => { this.comingSoonModal = childRef; }}/> );
+
         const handleRulesClick = (() => {
             this.rulesModal.open();
         });
 
-        const comingSoonModal = ( <ComingSoonModal ref={(childRef) => { this.comingSoonModal = childRef; }}/> );
         const handleComingSoonClick = (() => {
             this.comingSoonModal.open();
         });
@@ -41,7 +39,7 @@ class App extends React.Component {
                 <Row>
                     <Col xs={12}>
                         <Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
-                            <NavItem eventKey={handleHexClick} href="/home">Hex in React</NavItem>
+                            {/* <NavItem eventKey={handleHexClick} href="/home">Hex in React</NavItem> */}
                             <NavItem eventKey={handleRulesClick} title="Item">Game Rules</NavItem>
                             <NavItem eventKey={handleComingSoonClick} title="Item">Coming Soon</NavItem>
                         </Nav>
@@ -49,13 +47,13 @@ class App extends React.Component {
                 </Row>
                 <Row>
                     <Col xs={12}>
-                        <Jumbotron id="viewport">
+                        <Jumbotron id="viewport" className="modal-container">
                             <HexGame boardSize={9}/>
+                            {comingSoonModal}
+                            {rulesModal}
                         </Jumbotron>
                     </Col>
                 </Row>
-                {comingSoonModal}
-                {rulesModal}
             </Grid>
         )
     }
