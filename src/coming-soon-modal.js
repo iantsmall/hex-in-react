@@ -14,12 +14,8 @@ class ComingSoonModal extends React.Component {
                 "Nicer framing graphics for game",
                 "Fancier board and tile images",
                 "improved 'Nav' menu",
-                "Improved 'Step' buttons"
             ],
-            bugs: [
-                "Move steps cause game panel to grow continiously",
-                "Hex board image width/height is not set, and sometimes is cut off on some resolutions"
-            ]
+            bugs: []
         };
     }
 
