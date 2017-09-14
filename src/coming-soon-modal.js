@@ -13,7 +13,8 @@ class ComingSoonModal extends React.Component {
                 "Improved UI for rules and features",
                 "Nicer framing graphics for game",
                 "Fancier board and tile images",
-                "improved 'Nav' menu"
+                "improved 'Nav' menu",
+                "Improved 'Step' buttons"
             ],
             bugs: [
                 "Move steps cause game panel to grow continiously",

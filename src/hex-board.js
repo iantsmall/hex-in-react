@@ -1,67 +1,17 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Hex, {gridPoints} from "react-hex";
 
 class HexBoard extends React.Component {
-    getType() {
-        let {type} = this.props;
-        return type === undefined
-            ? "pointy-topped"
-            : type;
-    }
-
-    getSize() {
-        let {size} = this.props;
-        return size === undefined
-            ? 10
-            : size;
-    }
-
-    getOffsetX() {
-        let {oX} = this.props;
-        return oX === undefined
-            ? 100
-            : oX;
-    }
-
-    getOffsetY() {
-        let {oY} = this.props;
-        return oY === undefined
-            ? 100
-            : oY;
-    }
-
-    getWidth() {
-        let {width} = this.props;
-        return width === undefined
-            ? 25
-            : width;
-    }
-
-    getHeight() {
-        let {height} = this.props;
-        return height === undefined
-            ? 25
-            : height;
-    }
-
-    getOnClick() {
-        let {onClick} = this.props;
-        return onClick === undefined
-            ? i => {
-                console.log("No onClick defined, click unhandled");
-            }
-            : onClick;
-    }
-
     render() {
-        const type = this.getType();
-        const size = this.getSize();
-        const oX = this.getOffsetX();
-        const oY = this.getOffsetY();
-        const width = this.getWidth();
-        const height = this.getHeight();
+        const type = this.props.type;
+        const size = this.props.size;
+        const oX = this.props.oX;
+        const oY = this.props.oY;
+        const width = this.props.width;
+        const height = this.props.height;
+        const onClick = this.props.onClick;
         const board = this;
-        const onClick = this.getOnClick();
 
         const points = gridPoints(type, oX, oY, size, width, height);
 
@@ -87,5 +37,25 @@ class HexBoard extends React.Component {
         );
     }
 }
+
+HexBoard.propTypes = {
+    type: PropTypes.oneOf(['pointy-topped']).isRequired,
+    size: PropTypes.number.isRequired,
+    oX: PropTypes.number.isRequired,
+    oY: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    onClick: PropTypes.func.isRequired,
+};
+
+HexBoard.defaultProps = {
+    type: 'pointy-topped',
+    size: 10,
+    oX: 100,
+    oY: 100,
+    width: 25,
+    height: 25,
+    onClick: (i => { console.log("No onClick defined, click unhandled"); }),
+};
 
 export default HexBoard;
