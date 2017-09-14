@@ -14,7 +14,7 @@ class App extends React.Component {
 
         //define child components
         const hexGame = (<HexGame boardSize={9} ref={(childRef) => { this.board = childRef; }}/>);
-        const rulesModal = (<Rules ref={(childRef) => { this.rulesModal = childRef; }}/>);
+        const rulesModal = (<Rules boardSize={9} ref={(childRef) => { this.rulesModal = childRef; }}/>);
         const comingSoonModal = ( <ComingSoonModal ref={(childRef) => { this.comingSoonModal = childRef; }}/> );
 
         const handleRulesClick = (() => {

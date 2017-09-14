@@ -8,8 +8,8 @@ ol, ul {
 }
 
 .game-board {
-    min-width: 300px;
-    min-height: 200px;
+    width: 100vw;
+    height: auto;
 }
 
 .board-row:after {

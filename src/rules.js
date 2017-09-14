@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {Modal} from 'react-bootstrap';
 
 class Rules extends React.Component {
@@ -58,5 +59,9 @@ class Rules extends React.Component {
         );
     }
 }
+
+Rules.propTypes = {
+    boardSize: PropTypes.number.isRequired,
+};
 
 export default Rules;

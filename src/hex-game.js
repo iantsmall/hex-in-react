@@ -2,7 +2,7 @@ import React from "react";
 import HexBoard from "./hex-board.js";
 import {convertArrayToMatrix} from "./utils.js";
 import {gridPoints} from "react-hex";
-import {Button, Alert, Grid, Row, Col} from 'react-bootstrap';
+import {ButtonGroup, Button, DropdownButton, MenuItem, Alert, Grid, Row, Col} from 'react-bootstrap';
 
 const getNeighbors = (hex, matrix) => {
     const getHex = (x, y) => {
@@ -103,13 +103,13 @@ class HexGame extends React.Component {
                     hexes: initHexes
                 }
             ],
-            stepNumber: 0,
+            turnNumber: 0,
             xIsNext: true
         };
     }
 
     handleClick(i) {
-        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const history = this.state.history.slice(0, this.state.turnNumber + 1);
         const current = history[history.length - 1];
         const hexes = Array.from(current.hexes);
         //check if this hex is alredy defined OR if there is already a winner
@@ -125,34 +125,45 @@ class HexGame extends React.Component {
                     hexes: hexes
                 }
             ]),
-            stepNumber: history.length,
+            turnNumber: history.length,
             xIsNext: !this.state.xIsNext
         });
     }
 
-    jumpTo(step) {
+    jumpTo(turn) {
         this.setState({
-            stepNumber: step,
-            xIsNext: step % 2 === 0
+            turnNumber: turn,
+            xIsNext: turn % 2 === 0
         });
     }
 
     render() {
         const boardSize = this.props.boardSize + 2;
         const history = this.state.history;
-        const current = history[this.state.stepNumber];
+        const currentTurn = this.state.turnNumber;
+        const current = history[this.state.turnNumber];
         const winner = calculateWinner(current.hexes);
 
-        const moves = history.map((step, move) => {
+        const moves = history.map((turn, move) => {
             const desc = move
                 ? "Move #" + move
                 : "Game start";
-            return (
-                <li key={move}>
-                    <Button onClick={() => this.jumpTo(move)}>{desc}</Button>
-                </li>
-            );
+            return (<MenuItem key={move} eventKey={move} onClick={() => this.jumpTo(move)}>{desc}</MenuItem>);
         });
+
+        //create handlers for click events to jump to various key turns
+        const handleJumpToFirstTurn = () => {
+            this.jumpTo(0);
+        };
+        const handleJumpToPrevTurn = () => {
+            this.jumpTo(currentTurn > 0 ? currentTurn-1 : 0);
+        };
+        const handleJumpToNextTurn = () => {
+            this.jumpTo(currentTurn < history.length-1 ?  currentTurn +  1 : history.length-1);
+        };
+        const handleJumpToLastTurn = () => {
+            this.jumpTo(history.length > 0 ? history.length-1 : 0);
+        };
 
         let status;
         if (winner) {
@@ -164,14 +175,36 @@ class HexGame extends React.Component {
         }
 
         return (
-            <Grid>
-                <Row className="game">
-                    <Col sm={6} xs={12} className="game-board">
-                        <HexBoard type="pointy-topped" size={10} width={boardSize} height={boardSize} oX={10} oY={10} hexes={current.hexes} onClick={key => this.handleClick(key)}/>
-                    </Col>
-                    <Col sm={6} xs={12} className="game-info">
-                        <Alert bsStyle={winner? "success" : "info"}>{status}</Alert>
-                        <ol>{moves}</ol>
+            <Grid className="game">
+                <Row>
+                <Col xs={12} className="game-controls">
+                    <ButtonGroup justified={true}>
+                        <Button href="#" onClick={handleJumpToFirstTurn}>&lt;&lt;</Button>
+                        <Button href="#" onClick={handleJumpToPrevTurn}>&lt;</Button>
+                        <DropdownButton title="" id="bg-justified-dropdown">
+                            {moves}
+                        </DropdownButton>
+                        <Button href="#" onClick={handleJumpToNextTurn}>&gt;</Button>
+                        <Button href="#" onClick={handleJumpToLastTurn}>&gt;&gt;</Button>
+                    </ButtonGroup>
+                    <Alert bsStyle={winner? "success" : "info"}>{status}</Alert>
+                </Col>
+                <Col sm={6} xs={12} className="game-info">
+                </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <HexBoard
+                            id="game-board"
+                            type="pointy-topped"
+                            size={10}
+                            width={boardSize}
+                            height={boardSize}
+                            oX={10}
+                            oY={10}
+                            hexes={current.hexes}
+                            onClick={key => this.handleClick(key)}
+                        />
                     </Col>
                 </Row>
             </Grid>
