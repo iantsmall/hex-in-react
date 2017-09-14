@@ -1,6 +1,7 @@
 {
   "name": "hex-in-react",
-  "version": "0.2.0",
+  "homepage" : "http://iantsmall.github.io/hex-in-react",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "babel-preset-react": "^6.24.1",
