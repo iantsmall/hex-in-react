@@ -1,6 +1,6 @@
 {
   "name": "hex-in-react",
-  "homepage" : "http://iantsmall.github.io/hex-in-react",
+  "homepage": "http://iantsmall.github.io/hex-in-react",
   "version": "0.3.0",
   "private": true,
   "dependencies": {
@@ -9,6 +9,7 @@
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
+    "react-hex": "^0.4.1",
     "react-scripts": "1.0.12"
   },
   "scripts": {
