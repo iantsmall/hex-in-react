@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import "./app.css";
 import {
     Grid,
@@ -40,18 +40,16 @@ class App extends React.Component {
         const navbarInstance = (
             <Navbar inverse collapseOnSelect onSelect={handleSelect}>
                 <Navbar.Header>
-                    <Navbar.Brand><a href="#">Hex in React</a></Navbar.Brand>
+                    <Navbar.Brand><a href="/#">Hex in React</a></Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    <Nav>
-                        <Navbar.Text>
-                            A "React in Every Framework" Project
-                        </Navbar.Text>
-                    </Nav>
+                    <Navbar.Text>
+                      A <strong>React in Every Framework</strong> Project
+                    </Navbar.Text>
                     <Nav pullRight>
-                        <NavItem eventKey={handleRulesClick} title="Item">Game Rules</NavItem>
-                        <NavItem eventKey={handleComingSoonClick} title="Item">Coming Soon</NavItem>
+                      <NavItem eventKey={handleRulesClick} title="Item">Game Rules</NavItem>
+                      <NavItem eventKey={handleComingSoonClick} title="Item">Coming Soon</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -69,7 +67,8 @@ class App extends React.Component {
                     <Row>
                         <Col xs={12}>
                             <Jumbotron id="viewport" className="modal-container">
-                                <HexGame boardSize={9}/> {comingSoonModal}
+                                {hexGame}
+                                {comingSoonModal}
                                 {rulesModal}
                             </Jumbotron>
                         </Col>
