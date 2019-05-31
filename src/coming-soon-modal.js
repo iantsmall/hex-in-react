@@ -14,6 +14,7 @@ class ComingSoonModal extends React.Component {
                 "Nicer framing graphics for game",
                 "Fancier board and tile images",
                 "improved 'Nav' menu",
+                "Conversion to react-redux for state management"
             ],
             bugs: []
         };
